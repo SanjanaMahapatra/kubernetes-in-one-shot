@@ -1,0 +1,54 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql-statefulset
+  namespace: mysql-namespace
+  labels:
+    app: mysql
+
+spec:
+  replicas: 3
+  serviceName: mysql-service
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql-container
+          image: mysql:8.0
+          ports:
+            - containerPort: 3306
+          
+          # resource allocation details for the mysql pod
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits: # maximum quota
+              cpu: 200m
+              memory: 256Mi
+
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_ROOT_PASSWORD
+
+            - name: MYSQL_DATABASE
+              valueFrom: 
+                configMapKeyRef:
+                  name: mysql-configmap
+                  key: MYSQL_DATABASE
+          volumeMounts:
+            - name: mysql-persistent-data
+              mountPath: /var/lib/mysql
+
+      volumes:
+        - name: mysql-persistent-data
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim

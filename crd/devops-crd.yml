@@ -1,0 +1,43 @@
+kind: CustomResourceDefinition
+apiVersion: apiextensions.k8s.io/v1
+metadata:
+  name: devopsbatches.trainwithshubham.com
+
+spec:
+  group: trainwithshubham.com
+  names:
+    plural: devopsbatches
+    singular: devopsbatch
+    kind: DevopsBatch
+    shortNames:
+      - batches
+      - dbatch
+      - junoon
+      - tws
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                nameOfBatch:
+                  type: string
+                  description: "This is the name of devops batch"
+                durationOfBatch:
+                  type: string
+                  description: "This is the duration of the devops batch"
+                trainerOfBatch:
+                  type: string
+                  description: "This is the trainer of the devops batch"
+                modeOfBatch:
+                  type: string
+                  description: "This is the mode of the devops batch e.g Live/Recorded"
+                platform:
+                  type: string
+                  description: "This is te platform for the devops batch e.g Zoom/Teams"

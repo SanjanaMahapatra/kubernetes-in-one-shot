@@ -1,0 +1,12 @@
+kind: DevopsBatch
+apiVersion: trainwithshubham.com/v1
+metadata:
+  name: devops-cr-batch
+  namespace: junoon-namespace
+
+spec:
+  nameOfBatch: Devops-Zero To Hero junoon batch 1
+  durationOfBatch: 3 months starting from 1st July, 2026
+  trainerOfBatch: Sanjana Mahapatra
+  modeOfBatch: Live as always
+  platform: Zoom
